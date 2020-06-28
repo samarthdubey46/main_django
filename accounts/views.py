@@ -15,6 +15,7 @@ from .forms import OrderForm, CreateUserForm
 from .filter import OrderFilter
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles='customer')
 def home(request):
     order = Order.objects.all()
     CUstomer = Customer.objects.all()
@@ -26,11 +27,13 @@ def home(request):
     return render(request, 'accounts/dashboard.html', d)
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
 def product(request):
     products = Product.objects.all()
     return render(request, 'accounts/products.html', {'products': products})
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
 def customer(request, pk):
     c_by_id = Customer.objects.get(id=pk)
     orders = c_by_id.order_set.all()
@@ -43,6 +46,7 @@ def customer(request, pk):
     return render(request, 'accounts/customer.html', d)
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
 def make_form(request, pk):
     OrderFormSet = inlineformset_factory(Customer, Order, fields=('Product', 'status'), extra=10)
     customer = Customer.objects.get(id=pk)
@@ -59,6 +63,7 @@ def make_form(request, pk):
     return render(request, 'accounts/form_update.html', context)
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
 def update_form(request, pk):
     order = Order.objects.get(id=pk)
     form = OrderForm(instance=order)
@@ -73,6 +78,7 @@ def update_form(request, pk):
     return render(request, 'accounts/form_update.html', context)
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
 def make_form_12(request, pk):
     OrderFormSet = inlineformset_factory(Customer, Order, fields=('Product', 'status'), extra=5)
     customer1 = Customer.objects.get(id=pk)
@@ -89,6 +95,7 @@ def make_form_12(request, pk):
     return render(request, 'accounts/make_forms_1.html', context)
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
 def deleteOrder(request, pk, customerId=None):
     order = Order.objects.get(id=pk)
     if request.method == "POST":
@@ -115,7 +122,6 @@ def Login(request):
     context = {}
     return render(request, 'accounts/Login.html', context)
 
-@login_required(login_url='login')
 def logoutUser(request):
     logout(request)
     return redirect('login')
