@@ -23,6 +23,7 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
+      {% if request.user.is_staff %}
       <li class="nav-item active">
         <a class="nav-link" href={% url 'home' %}>Dashboard </a>
       </li>
@@ -32,6 +33,12 @@
         <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
       </li>
     </ul>
+      {% else %}
+          <li class="nav-item active">
+                <a class="nav-link" href={% url 'account' %}>Settings </a>
+            </li>
+      {% endif %}
+
   </div>
 
     <span id="hello-msg">Hello {{ request.user }}</span>

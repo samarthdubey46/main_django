@@ -1,16 +1,25 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Customer(models.Model):
+    user = models.OneToOneField(User,null=True,blank=True,on_delete=models.CASCADE)
     name = models.CharField(max_length=200, null=True)
-    password = models.CharField(max_length=200, null=True)
+    phone = models.CharField(max_length=200, null=True)
     email = models.CharField(max_length=200, null=True)
     date_created = models.DateTimeField(auto_now_add=True)
+    profice_pic = models.ImageField(null=True,default='profile1.png',blank=True)
+
     def __str__(self):
-        return self.name
+        return str(self.name)
+
+
 
 class Tag(models.Model):
     name = models.CharField(max_length=200,null=True)
+
+    def __str__(self):
+        return self.name
 class Product(models.Model):
     choices = (
         ('Outdoor', "Outdoor"),
@@ -38,6 +47,6 @@ class Order(models.Model):
     customer = models.ForeignKey(Customer,on_delete=models.CASCADE)
     Product = models.ForeignKey(Product,on_delete=models.CASCADE)
     def __str__(self):
-        return self.status
+        return self.Product.name
 
 # Create your models here.

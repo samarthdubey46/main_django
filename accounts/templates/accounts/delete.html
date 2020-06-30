@@ -28,7 +28,7 @@
           <p style="text-align: center;">Are you Sure to Delete {{ item.Product.name }}</p>
         </div>
         <div class="modal-footer">
-            <form action="{% url 'delete_form' item.id  %}" method="POST">
+            <form action="{% url 'delete_form' item.id  %}" method="POST">{{ csrf_input }}
 
 				{% csrf_token %}
                 {% if customer %}

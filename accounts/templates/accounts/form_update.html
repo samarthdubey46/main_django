@@ -8,7 +8,7 @@
 	<div class="col-md-6">
 		<div class="card card-body">
 
-			<form action="" method="POST">
+			<form action="" method="POST">{{ csrf_input }}
                 <div  class="form-group">
 				{% csrf_token %}
                     {{ form|crispy }}
