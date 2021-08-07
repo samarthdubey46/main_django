@@ -21,7 +21,6 @@ from .filter import OrderFilter
 @requires_csrf_token
 @csrf_protect
 @login_required(login_url='login')
-# @allowed_users(allowed_roles=['admin_only'])
 @admin_only
 def home(request):
     order = Order.objects.all()
@@ -38,7 +37,7 @@ def home(request):
 @requires_csrf_token
 @csrf_protect
 @login_required(login_url='login')
-@allowed_users(allowed_roles=['customer'])
+@allowed_users(allowed_roles=['Customer'])
 def user_page(request):
     order = request.user.customer.order_set.all()
     to = order.count()
@@ -51,7 +50,7 @@ def user_page(request):
 @requires_csrf_token
 @csrf_protect
 @login_required(login_url='login')
-@allowed_users(allowed_roles=['admin'])
+@allowed_users(allowed_roles=['Admin'])
 def product(request):
     products = Product.objects.all()
     return render(request, 'accounts/products.html', {'products': products})
@@ -60,7 +59,7 @@ def product(request):
 @requires_csrf_token
 @csrf_protect
 @login_required(login_url='login')
-@allowed_users(allowed_roles=['admin'])
+@allowed_users(allowed_roles=['Admin'])
 def customer(request, pk):
     c_by_id = Customer.objects.get(id=pk)
     orders = c_by_id.order_set.all()
@@ -76,7 +75,7 @@ def customer(request, pk):
 @requires_csrf_token
 @csrf_protect
 @login_required(login_url='login')
-@allowed_users(allowed_roles=['admin'])
+@allowed_users(allowed_roles=['Admin'])
 def make_form(request, pk):
     OrderFormSet = inlineformset_factory(Customer, Order, fields=('Product', 'status'), extra=10)
     customer = Customer.objects.get(id=pk)
@@ -96,7 +95,7 @@ def make_form(request, pk):
 @requires_csrf_token
 @csrf_protect
 @login_required(login_url='login')
-@allowed_users(allowed_roles=['admin'])
+@allowed_users(allowed_roles=['Admin'])
 def update_form(request, pk):
     order = Order.objects.get(id=pk)
     form = OrderForm(instance=order)
@@ -114,7 +113,7 @@ def update_form(request, pk):
 @requires_csrf_token
 @csrf_protect
 @login_required(login_url='login')
-@allowed_users(allowed_roles=['admin'])
+@allowed_users(allowed_roles=['Admin'])
 def make_form_12(request, pk):
     OrderFormSet = inlineformset_factory(Customer, Order, fields=('Product', 'status'), extra=5)
     customer1 = Customer.objects.get(id=pk)
@@ -134,7 +133,7 @@ def make_form_12(request, pk):
 @requires_csrf_token
 @csrf_protect
 @login_required(login_url='login')
-@allowed_users(allowed_roles=['admin'])
+@allowed_users(allowed_roles=['Admin'])
 def deleteOrder(request, pk, customerId=None):
     order = Order.objects.get(id=pk)
     if request.method == "POST":
@@ -190,7 +189,7 @@ def register(request):
 @requires_csrf_token
 @csrf_protect
 @login_required(login_url='login')
-@allowed_users(allowed_roles=['customer'])
+@allowed_users(allowed_roles=['Customer'])
 def accountSettings(request):
     user = request.user.customer
     form = CustomerForm(instance=user)

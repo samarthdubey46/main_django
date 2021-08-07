@@ -37,7 +37,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="/home/samarth/PycharmProjects/untitled1/venv"
+VIRTUAL_ENV="/home/samarth/Documents/Django/LawApi/venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

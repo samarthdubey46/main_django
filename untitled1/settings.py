@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts.apps.AccountsConfig',
     'untitled1',
-    'crispy_forms',
     'django_filters',
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -73,17 +72,30 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'untitled1.wsgi.application'
-
+DEFAULT_AUTO_FIELD='django.db.models.AutoField'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 
 DATABASES = {
+
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+
+        'NAME': 'main_django',
+
+        'USER': 'samarth',
+
+        'PASSWORD': 'password',
+
+        'HOST': 'localhost',
+
+        'PORT': '5432',
+
     }
+
 }
 
 
@@ -136,4 +148,4 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'samarthdb27@gmail.com'
-EMAIL_HOST_PASSWORD = '2707ssss'
+EMAIL_HOST_PASSWORD = '300802ss'
